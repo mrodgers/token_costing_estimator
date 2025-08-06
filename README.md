@@ -88,6 +88,33 @@ LLM Costing Analysis:
 - **Error Handling**: The application gracefully handles invalid inputs and provides clear error messages
 - **Interruption**: Use `Ctrl+C` to safely exit the application at any time
 
+## Technical Features
+
+### Error Handling & Reliability
+
+The application includes comprehensive error handling for production-ready reliability:
+
+- **Input Validation**: All user inputs are validated to ensure they are positive numbers
+- **EOF Handling**: Gracefully handles end-of-file conditions (useful for automated environments)
+- **Keyboard Interrupt**: Clean exit when users press `Ctrl+C` with informative messages
+- **Value Errors**: Clear error messages for invalid numeric inputs with troubleshooting guidance
+- **Unexpected Errors**: Comprehensive error reporting for debugging purposes
+
+### Type Safety & Code Quality
+
+The codebase implements modern Python best practices:
+
+- **Full Type Hints**: Complete type annotation coverage using `typing.Union` for numeric inputs
+- **Type-Safe Methods**: All class methods and functions include proper return type annotations
+- **Input/Output Types**: Clear type definitions for all function parameters and return values
+- **IDE Support**: Enhanced development experience with full IntelliSense and error detection
+
+### Architecture
+
+- **Object-Oriented Design**: Clean `OpenAICostCalculator` class with well-defined responsibilities
+- **Separation of Concerns**: Distinct functions for input handling, calculations, and output display
+- **Modular Structure**: Easy to extend and maintain codebase structure
+
 ## Contributing
 
 Contributions are welcome! Feel free to fork the repository and submit pull requests.
@@ -101,6 +128,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Matt Rodgers - mrodgers.junk gmail
 
 Project Link: [https://github.com/mrodgers/token_costing_estimator](https://github.com/mrodgers/token_costing_estimator)
+
 
 
 
