@@ -5,6 +5,24 @@ import logging
 from datetime import datetime
 from typing import Union, Optional, Dict, Any
 
+# Import configuration management
+try:
+    from config import load_config, ConfigurationError
+except ImportError:
+    # Fallback if config module is not available
+    def load_config():
+        return {
+            "default_prompts_per_shift": 50,
+            "default_multiplier": 5,
+            "default_avg_tokens_per_call": 2000,
+            "default_token_cost_per_thousand": 0.06,
+            "default_doctors_per_shift": 10,
+            "default_shifts_per_day": 3
+        }
+    
+    class ConfigurationError(Exception):
+        pass
+
 class OpenAICostCalculator:
     """
     A class to calculate the cost of using OpenAI's API for an application.
@@ -495,6 +513,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
