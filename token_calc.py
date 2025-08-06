@@ -502,12 +502,31 @@ def main() -> None:
             logging.info(f"Interactive parameters collected: prompts={prompts_per_shift}, multiplier={multiplier}, tokens={avg_tokens_per_call}, cost={token_cost_per_thousand}, doctors={doctors_per_shift}, shifts={shifts_per_day}")
 
         # Initialize calculator and perform calculations
+        logging.info("Initializing OpenAI cost calculator")
         calculator = OpenAICostCalculator(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand)
+        logging.info("Calculator initialized successfully")
+        
+        logging.debug("Calculating cost per shift")
         cost_per_shift = calculator.calculate_cost_per_shift()
+        logging.debug(f"Cost per shift calculated: ${cost_per_shift:.2f}")
+        
+        logging.debug("Calculating cost per hospital per shift")
         cost_per_hospital_per_shift = calculator.calculate_cost_per_hospital_per_shift(doctors_per_shift)
+        logging.debug(f"Cost per hospital per shift calculated: ${cost_per_hospital_per_shift:.2f}")
+        
+        logging.debug("Calculating daily costs")
         daily_costs = calculator.calculate_daily_costs(shifts_per_day, doctors_per_shift)
+        logging.debug(f"Daily costs calculated: ${daily_costs:.2f}")
+        
+        logging.debug("Calculating monthly costs")
         monthly_costs = calculator.calculate_monthly_costs(daily_costs)
+        logging.debug(f"Monthly costs calculated: ${monthly_costs:.2f}")
+        
+        logging.debug("Calculating annual costs")
         annual_costs = calculator.calculate_annual_costs(monthly_costs)
+        logging.debug(f"Annual costs calculated: ${annual_costs:.2f}")
+        
+        logging.info(f"All calculations completed - Shift: ${cost_per_shift:.2f}, Daily: ${daily_costs:.2f}, Monthly: ${monthly_costs:.2f}, Annual: ${annual_costs:.2f}")
 
         # Display results
         description = describe_scenario(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand, doctors_per_shift, shifts_per_day)
@@ -609,6 +628,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
