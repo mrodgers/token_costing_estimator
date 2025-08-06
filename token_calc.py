@@ -45,7 +45,7 @@ class OpenAICostCalculator:
         # Calculates the daily costs of OpenAI API calls for a hospital.
         return self.calculate_cost_per_hospital_per_shift(doctors_per_shift) * shifts_per_day
 
-    def calculate_monthly_costs(self, daily_costs):
+    def calculate_monthly_costs(self, daily_costs: Union[int, float]) -> float:
         days_per_month = 30  # Average number of days in a month
         return daily_costs * days_per_month
 
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
