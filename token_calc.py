@@ -68,7 +68,7 @@ def print_pricing():
     print("      This calculator uses a simplified single rate per 1K tokens.")
     print("="*60 + "\n")
 
-def get_input(prompt, default_value):
+def get_input(prompt: str, default_value: Union[str, int, float]) -> Union[str, int, float]:
     """Captures user input or uses default value if no input is provided.
     
     Handles EOF exceptions and keyboard interrupts gracefully.
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
