@@ -41,7 +41,7 @@ class OpenAICostCalculator:
         # Calculates the total cost per hospital per shift.
         return self.calculate_cost_per_shift() * doctors_per_shift
 
-    def calculate_daily_costs(self, shifts_per_day, doctors_per_shift):
+    def calculate_daily_costs(self, shifts_per_day: Union[int, float], doctors_per_shift: Union[int, float]) -> float:
         # Calculates the daily costs of OpenAI API calls for a hospital.
         return self.calculate_cost_per_hospital_per_shift(doctors_per_shift) * shifts_per_day
 
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
