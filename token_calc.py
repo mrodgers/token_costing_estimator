@@ -37,7 +37,7 @@ class OpenAICostCalculator:
         tokens_per_shift = self.calculate_tokens_per_shift()
         return (tokens_per_shift / 1000) * self.token_cost_per_thousand
 
-    def calculate_cost_per_hospital_per_shift(self, doctors_per_shift):
+    def calculate_cost_per_hospital_per_shift(self, doctors_per_shift: Union[int, float]) -> float:
         # Calculates the total cost per hospital per shift.
         return self.calculate_cost_per_shift() * doctors_per_shift
 
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
