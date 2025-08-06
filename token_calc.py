@@ -176,13 +176,48 @@ def main():
         print(description)
         display_results(cost_per_shift, cost_per_hospital_per_shift, daily_costs, monthly_costs, annual_costs)
 
+    except KeyboardInterrupt:
+        print("\n\n" + "="*50)
+        print("OPERATION CANCELLED")
+        print("="*50)
+        print("The cost calculation was interrupted by the user.")
+        print("Thank you for using the Token Costing Estimator!")
+        print("="*50)
+        return
+    except EOFError:
+        print("\n\n" + "="*50)
+        print("INPUT STREAM ENDED")
+        print("="*50)
+        print("The input stream ended unexpectedly (EOF detected).")
+        print("This can happen when running in non-interactive environments.")
+        print("All default values have been used for the calculation.")
+        print("="*50)
     except ValueError as e:
-        print(f"Invalid input: {e}")
+        print("\n" + "="*50)
+        print("INVALID INPUT ERROR")
+        print("="*50)
+        print(f"Error: {e}")
+        print("\nThis error typically occurs when:")
+        print("• Non-numeric values are entered for numeric fields")
+        print("• Negative values are provided where positive numbers are expected")
+        print("• Invalid characters are included in numeric inputs")
+        print("\nPlease restart the program and ensure all inputs are valid positive numbers.")
+        print("="*50)
     except Exception as e:
+        print("\n" + "="*50)
+        print("UNEXPECTED ERROR")
+        print("="*50)
         print(f"An unexpected error occurred: {e}")
+        print(f"Error type: {type(e).__name__}")
+        print("\nThis is likely a bug in the program. Please report this issue with:")
+        print("• The exact error message above")
+        print("• The inputs you provided")
+        print("• Your operating system and Python version")
+        print("="*50)
 
 if __name__ == "__main__":
     main()
+
 
 
 
