@@ -50,6 +50,21 @@ class OpenAICostCalculator:
         months_per_year = 12  # Number of months in a year
         return monthly_costs * months_per_year
 
+def print_pricing():
+    """Displays current OpenAI pricing information to help users understand cost structure."""
+    print("\n" + "="*60)
+    print("CURRENT OPENAI PRICING REFERENCE (as of 2024)")
+    print("="*60)
+    print("GPT-4 Models:")
+    print("  • GPT-4 (8K context):     $0.03/1K input tokens, $0.06/1K output tokens")
+    print("  • GPT-4 (32K context):    $0.06/1K input tokens, $0.12/1K output tokens")
+    print("  • GPT-4 Turbo:            $0.01/1K input tokens, $0.03/1K output tokens")
+    print("\nGPT-3.5 Models:")
+    print("  • GPT-3.5 Turbo:          $0.0015/1K input tokens, $0.002/1K output tokens")
+    print("\nNote: Prices may vary. Check https://openai.com/pricing for latest rates.")
+    print("      This calculator uses a simplified single rate per 1K tokens.")
+    print("="*60 + "\n")
+
 def get_input(prompt, default_value):
     # Captures user input or uses default value if no input is provided.
     user_input = input(f"{prompt} [{default_value}]: ")
@@ -140,4 +155,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
