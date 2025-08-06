@@ -442,16 +442,20 @@ def main() -> None:
             logging.info("Using built-in fallback defaults")
 
         # Parse command-line arguments
+        logging.info("Parsing command-line arguments")
         args = parse_arguments()
         
         if args is not None:
             # Command-line mode: use provided arguments or defaults
+            logging.info("Running in command-line mode")
             prompts_per_shift = args.prompts if args.prompts is not None else default_prompts_per_shift
             multiplier = args.multiplier if args.multiplier is not None else default_multiplier
             avg_tokens_per_call = args.tokens if args.tokens is not None else default_avg_tokens_per_call
             token_cost_per_thousand = args.cost if args.cost is not None else default_token_cost_per_thousand
             doctors_per_shift = args.doctors if args.doctors is not None else default_doctors_per_shift
             shifts_per_day = args.shifts if args.shifts is not None else default_shifts_per_day
+            
+            logging.info(f"CLI parameters: prompts={prompts_per_shift}, multiplier={multiplier}, tokens={avg_tokens_per_call}, cost={token_cost_per_thousand}, doctors={doctors_per_shift}, shifts={shifts_per_day}")
             
             # Display the values being used in CLI mode
             print("Token Costing Estimator - Command Line Mode")
@@ -465,15 +469,37 @@ def main() -> None:
             print("=" * 50)
         else:
             # Interactive mode: collect input from the user
+            logging.info("Running in interactive mode")
             print("Token Costing Estimator - Interactive Mode")
             print("=" * 50)
+            
+            logging.debug("Collecting user input for prompts per shift")
             prompts_per_shift = float(get_input("Enter the number of prompts sent per doctor's shift", default_prompts_per_shift))
+            logging.debug(f"User input - prompts per shift: {prompts_per_shift}")
+            
+            logging.debug("Collecting user input for multiplier")
             multiplier = float(get_input("Enter the chain/interaction/augmentation multiplier", default_multiplier))
+            logging.debug(f"User input - multiplier: {multiplier}")
+            
+            logging.debug("Collecting user input for tokens per call")
             avg_tokens_per_call = float(get_input("Enter the average tokens used per API call", default_avg_tokens_per_call))
+            logging.debug(f"User input - tokens per call: {avg_tokens_per_call}")
+            
             print_pricing()  # Prints the current OpenAI pricing
+            
+            logging.debug("Collecting user input for token cost")
             token_cost_per_thousand = float(get_input("Enter the OpenAI price per 1000 tokens (GPT-4=$0.06) (in $)", default_token_cost_per_thousand))
+            logging.debug(f"User input - token cost: {token_cost_per_thousand}")
+            
+            logging.debug("Collecting user input for doctors per shift")
             doctors_per_shift = float(get_input("Enter the number of doctors on shift per hospital", default_doctors_per_shift))
+            logging.debug(f"User input - doctors per shift: {doctors_per_shift}")
+            
+            logging.debug("Collecting user input for shifts per day")
             shifts_per_day = float(get_input("Enter the number of shifts per day", default_shifts_per_day))
+            logging.debug(f"User input - shifts per day: {shifts_per_day}")
+            
+            logging.info(f"Interactive parameters collected: prompts={prompts_per_shift}, multiplier={multiplier}, tokens={avg_tokens_per_call}, cost={token_cost_per_thousand}, doctors={doctors_per_shift}, shifts={shifts_per_day}")
 
         # Initialize calculator and perform calculations
         calculator = OpenAICostCalculator(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand)
@@ -583,6 +609,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
