@@ -118,7 +118,9 @@ LLM Costing Analysis:
     """
     print(result)
 
-def describe_scenario(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand, doctors_per_shift, shifts_per_day):
+def describe_scenario(prompts_per_shift: Union[int, float], multiplier: Union[int, float], 
+                     avg_tokens_per_call: Union[int, float], token_cost_per_thousand: Union[int, float],
+                     doctors_per_shift: Union[int, float], shifts_per_day: Union[int, float]) -> str:
     # Creates a descriptive paragraph of the given scenario using user inputs.
     description = (
         f"The scenario involves an example app 'Doctor Diagnosis Assistant App', which utilizes the OpenAI API. "
@@ -221,6 +223,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
