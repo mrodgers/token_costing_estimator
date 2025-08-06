@@ -1,4 +1,5 @@
 import logging
+from typing import Union
 
 class OpenAICostCalculator:
     """
@@ -217,6 +218,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
