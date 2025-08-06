@@ -1,6 +1,4 @@
 import logging
-from bs4 import BeautifulSoup
-import json
 
 class OpenAICostCalculator:
     """
@@ -142,3 +140,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
