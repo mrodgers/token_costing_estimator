@@ -227,15 +227,39 @@ def main() -> None:
         default_doctors_per_shift = 10
         default_shifts_per_day = 3
 
-        # User inputs with defaults
-        # Collects input from the user or uses default values
-        prompts_per_shift = float(get_input("Enter the number of prompts sent per doctor's shift", default_prompts_per_shift))
-        multiplier = float(get_input("Enter the chain/interaction/augmentation multiplier", default_multiplier))
-        avg_tokens_per_call = float(get_input("Enter the average tokens used per API call", default_avg_tokens_per_call))
-        print_pricing()  # Prints the current OpenAI pricing
-        token_cost_per_thousand = float(get_input("Enter the OpenAI price per 1000 tokens (GPT-4=$0.06) (in $)", default_token_cost_per_thousand))
-        doctors_per_shift = float(get_input("Enter the number of doctors on shift per hospital", default_doctors_per_shift))
-        shifts_per_day = float(get_input("Enter the number of shifts per day", default_shifts_per_day))
+        # Parse command-line arguments
+        args = parse_arguments()
+        
+        if args is not None:
+            # Command-line mode: use provided arguments or defaults
+            prompts_per_shift = args.prompts if args.prompts is not None else default_prompts_per_shift
+            multiplier = args.multiplier if args.multiplier is not None else default_multiplier
+            avg_tokens_per_call = args.tokens if args.tokens is not None else default_avg_tokens_per_call
+            token_cost_per_thousand = args.cost if args.cost is not None else default_token_cost_per_thousand
+            doctors_per_shift = args.doctors if args.doctors is not None else default_doctors_per_shift
+            shifts_per_day = args.shifts if args.shifts is not None else default_shifts_per_day
+            
+            # Display the values being used in CLI mode
+            print("Token Costing Estimator - Command Line Mode")
+            print("=" * 50)
+            print(f"Prompts per shift: {prompts_per_shift}")
+            print(f"Chain/interaction multiplier: {multiplier}")
+            print(f"Average tokens per call: {avg_tokens_per_call}")
+            print(f"Cost per 1000 tokens: ${token_cost_per_thousand}")
+            print(f"Doctors per shift: {doctors_per_shift}")
+            print(f"Shifts per day: {shifts_per_day}")
+            print("=" * 50)
+        else:
+            # Interactive mode: collect input from the user
+            print("Token Costing Estimator - Interactive Mode")
+            print("=" * 50)
+            prompts_per_shift = float(get_input("Enter the number of prompts sent per doctor's shift", default_prompts_per_shift))
+            multiplier = float(get_input("Enter the chain/interaction/augmentation multiplier", default_multiplier))
+            avg_tokens_per_call = float(get_input("Enter the average tokens used per API call", default_avg_tokens_per_call))
+            print_pricing()  # Prints the current OpenAI pricing
+            token_cost_per_thousand = float(get_input("Enter the OpenAI price per 1000 tokens (GPT-4=$0.06) (in $)", default_token_cost_per_thousand))
+            doctors_per_shift = float(get_input("Enter the number of doctors on shift per hospital", default_doctors_per_shift))
+            shifts_per_day = float(get_input("Enter the number of shifts per day", default_shifts_per_day))
 
         # Initialize calculator and perform calculations
         calculator = OpenAICostCalculator(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand)
@@ -292,6 +316,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
