@@ -14,15 +14,18 @@ This repository contains a Python script for calculating the cost of using OpenA
 
 ## Installation
 
-To run this script, you will need Python installed on your system. Additionally, the script uses the following packages:
-- `bs4` (BeautifulSoup) for HTML parsing.
-- `json` for JSON handling.
+To run this script, you will need Python 3.6 or higher installed on your system. The application uses only Python's built-in standard library modules, so **no external dependencies are required**.
 
-You can install these packages using pip:
+### Quick Start
 
-```bash
-pip install beautifulsoup4
-```
+1. Ensure you have Python 3.6+ installed:
+   ```bash
+   python --version
+   # or
+   python3 --version
+   ```
+
+2. No additional packages need to be installed - the script is ready to run!
 
 ## Setup
 
@@ -74,4 +77,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Matt Rodgers - mrodgers.junk gmail
 
 Project Link: [https://github.com/mrodgers/token_costing_estimator](https://github.com/mrodgers/token_costing_estimator)
+
 
