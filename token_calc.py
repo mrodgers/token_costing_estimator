@@ -133,7 +133,7 @@ def describe_scenario(prompts_per_shift: Union[int, float], multiplier: Union[in
     )
     return description
 
-def print_pricing():
+def print_pricing() -> None:
     """Displays current OpenAI pricing information to help users understand cost structure."""
     print("\n" + "="*60)
     print("CURRENT OPENAI PRICING REFERENCE (as of 2024)")
@@ -223,6 +223,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
