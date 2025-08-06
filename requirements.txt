@@ -1,0 +1,10 @@
+# Token Costing Estimator Dependencies
+# Currently no external dependencies are required for the basic functionality
+# This file is prepared for future enhancements that may require additional packages
+
+# Future potential dependencies:
+# requests>=2.31.0  # For API integration to fetch real-time pricing
+# pandas>=2.0.0     # For data manipulation and export capabilities
+# click>=8.0.0      # For enhanced CLI argument parsing
+# pytest>=7.0.0     # For testing framework
+# typing-extensions>=4.0.0  # For enhanced type hints in older Python versions
