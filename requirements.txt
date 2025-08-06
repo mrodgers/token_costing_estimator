@@ -2,9 +2,18 @@
 # Currently no external dependencies are required for the basic functionality
 # This file is prepared for future enhancements that may require additional packages
 
+# Built-in modules used (no installation required):
+# - argparse: Command-line argument parsing
+# - csv: CSV file export functionality
+# - json: JSON file export functionality
+# - logging: Application logging (imported but not yet fully implemented)
+# - datetime: Timestamp generation for exports
+# - typing: Type hints for improved code quality
+
 # Future potential dependencies:
 # requests>=2.31.0  # For API integration to fetch real-time pricing
-# pandas>=2.0.0     # For data manipulation and export capabilities
-# click>=8.0.0      # For enhanced CLI argument parsing
+# pandas>=2.0.0     # For enhanced data manipulation and export capabilities
+# click>=8.0.0      # For enhanced CLI argument parsing (alternative to argparse)
 # pytest>=7.0.0     # For testing framework
 # typing-extensions>=4.0.0  # For enhanced type hints in older Python versions
+
