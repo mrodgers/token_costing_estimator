@@ -22,7 +22,8 @@ class OpenAICostCalculator:
         self.token_cost_per_thousand = token_cost_per_thousand
 
     @staticmethod
-    def validate_inputs(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand):
+    def validate_inputs(prompts_per_shift: Union[int, float], multiplier: Union[int, float], 
+                       avg_tokens_per_call: Union[int, float], token_cost_per_thousand: Union[int, float]) -> None:
         # Ensures all input parameters are positive numbers.
         if not all(isinstance(arg, (int, float)) and arg > 0 for arg in [prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand]):
             raise ValueError("All parameters should be positive numbers.")
@@ -219,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
