@@ -94,7 +94,8 @@ def get_input(prompt: str, default_value: Union[str, int, float]) -> Union[str, 
         print(f"\n\nOperation cancelled by user. Using default value: {default_value}")
         return default_value
 
-def display_results(cost_per_shift, cost_per_hospital_per_shift, daily_costs, monthly_costs, annual_costs):
+def display_results(cost_per_shift: float, cost_per_hospital_per_shift: float, 
+                   daily_costs: float, monthly_costs: float, annual_costs: float) -> None:
     # Formats and displays the calculated cost results in a table format.
     max_cost_length = max(len(f"{cost_per_shift:,.2f}"), 
                           len(f"{cost_per_hospital_per_shift:,.2f}"), 
@@ -220,6 +221,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
