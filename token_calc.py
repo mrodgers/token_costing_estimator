@@ -599,6 +599,7 @@ def main() -> None:
             pass
 
     except KeyboardInterrupt:
+        logging.info("Application interrupted by user (Ctrl+C)")
         print("\n\n" + "="*50)
         print("OPERATION CANCELLED")
         print("="*50)
@@ -607,6 +608,7 @@ def main() -> None:
         print("="*50)
         return
     except EOFError:
+        logging.info("EOF detected - input stream ended unexpectedly")
         print("\n\n" + "="*50)
         print("INPUT STREAM ENDED")
         print("="*50)
@@ -615,6 +617,7 @@ def main() -> None:
         print("All default values have been used for the calculation.")
         print("="*50)
     except ValueError as e:
+        logging.error(f"ValueError occurred: {e}")
         print("\n" + "="*50)
         print("INVALID INPUT ERROR")
         print("="*50)
@@ -626,6 +629,7 @@ def main() -> None:
         print("\nPlease restart the program and ensure all inputs are valid positive numbers.")
         print("="*50)
     except Exception as e:
+        logging.critical(f"Unexpected error occurred: {e}", exc_info=True)
         print("\n" + "="*50)
         print("UNEXPECTED ERROR")
         print("="*50)
@@ -636,9 +640,12 @@ def main() -> None:
         print("• The inputs you provided")
         print("• Your operating system and Python version")
         print("="*50)
+    finally:
+        logging.info("Token Costing Estimator application ended")
 
 if __name__ == "__main__":
     main()
+
 
 
 
