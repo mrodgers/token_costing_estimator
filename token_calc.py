@@ -49,7 +49,7 @@ class OpenAICostCalculator:
         days_per_month = 30  # Average number of days in a month
         return daily_costs * days_per_month
 
-    def calculate_annual_costs(self, monthly_costs):
+    def calculate_annual_costs(self, monthly_costs: Union[int, float]) -> float:
         months_per_year = 12  # Number of months in a year
         return monthly_costs * months_per_year
 
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
