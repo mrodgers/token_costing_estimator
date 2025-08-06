@@ -220,6 +220,129 @@ def print_pricing() -> None:
     print("      This calculator uses a simplified single rate per 1K tokens.")
     print("="*60 + "\n")
 
+def export_to_csv(calculation_data: Dict[str, Any], filename: Optional[str] = None) -> str:
+    """
+    Export calculation results to a CSV file.
+    
+    Args:
+        calculation_data: Dictionary containing all calculation parameters and results
+        filename: Optional custom filename. If None, generates timestamp-based filename
+        
+    Returns:
+        str: The filename of the created CSV file
+    """
+    if filename is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"openai_cost_analysis_{timestamp}.csv"
+    
+    try:
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            
+            # Write header
+            writer.writerow(['Metric', 'Value', 'Unit'])
+            
+            # Write input parameters
+            writer.writerow(['=== INPUT PARAMETERS ===', '', ''])
+            writer.writerow(['Prompts per shift', calculation_data['prompts_per_shift'], 'prompts'])
+            writer.writerow(['Chain/interaction multiplier', calculation_data['multiplier'], 'multiplier'])
+            writer.writerow(['Average tokens per call', calculation_data['avg_tokens_per_call'], 'tokens'])
+            writer.writerow(['Cost per 1000 tokens', calculation_data['token_cost_per_thousand'], 'USD'])
+            writer.writerow(['Doctors per shift', calculation_data['doctors_per_shift'], 'doctors'])
+            writer.writerow(['Shifts per day', calculation_data['shifts_per_day'], 'shifts'])
+            
+            # Write calculated results
+            writer.writerow(['', '', ''])
+            writer.writerow(['=== CALCULATED RESULTS ===', '', ''])
+            writer.writerow(['Cost per shift', f"${calculation_data['cost_per_shift']:.2f}", 'USD'])
+            writer.writerow(['Cost per hospital per shift', f"${calculation_data['cost_per_hospital_per_shift']:.2f}", 'USD'])
+            writer.writerow(['Daily costs', f"${calculation_data['daily_costs']:.2f}", 'USD'])
+            writer.writerow(['Monthly costs', f"${calculation_data['monthly_costs']:.2f}", 'USD'])
+            writer.writerow(['Annual costs', f"${calculation_data['annual_costs']:.2f}", 'USD'])
+            
+            # Write metadata
+            writer.writerow(['', '', ''])
+            writer.writerow(['=== METADATA ===', '', ''])
+            writer.writerow(['Export timestamp', calculation_data['timestamp'], ''])
+            writer.writerow(['Application', 'Token Costing Estimator', ''])
+            writer.writerow(['Scenario', calculation_data['scenario_description'][:100] + '...', ''])
+        
+        return filename
+        
+    except IOError as e:
+        raise IOError(f"Failed to write CSV file '{filename}': {e}")
+
+def export_to_json(calculation_data: Dict[str, Any], filename: Optional[str] = None) -> str:
+    """
+    Export calculation results to a JSON file.
+    
+    Args:
+        calculation_data: Dictionary containing all calculation parameters and results
+        filename: Optional custom filename. If None, generates timestamp-based filename
+        
+    Returns:
+        str: The filename of the created JSON file
+    """
+    if filename is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"openai_cost_analysis_{timestamp}.json"
+    
+    try:
+        # Structure the data for JSON export
+        export_data = {
+            "metadata": {
+                "application": "Token Costing Estimator",
+                "version": "1.0",
+                "export_timestamp": calculation_data['timestamp'],
+                "scenario_description": calculation_data['scenario_description']
+            },
+            "input_parameters": {
+                "prompts_per_shift": calculation_data['prompts_per_shift'],
+                "multiplier": calculation_data['multiplier'],
+                "avg_tokens_per_call": calculation_data['avg_tokens_per_call'],
+                "token_cost_per_thousand": calculation_data['token_cost_per_thousand'],
+                "doctors_per_shift": calculation_data['doctors_per_shift'],
+                "shifts_per_day": calculation_data['shifts_per_day']
+            },
+            "calculated_results": {
+                "cost_per_shift": {
+                    "value": calculation_data['cost_per_shift'],
+                    "formatted": f"${calculation_data['cost_per_shift']:.2f}",
+                    "unit": "USD"
+                },
+                "cost_per_hospital_per_shift": {
+                    "value": calculation_data['cost_per_hospital_per_shift'],
+                    "formatted": f"${calculation_data['cost_per_hospital_per_shift']:.2f}",
+                    "unit": "USD"
+                },
+                "daily_costs": {
+                    "value": calculation_data['daily_costs'],
+                    "formatted": f"${calculation_data['daily_costs']:.2f}",
+                    "unit": "USD"
+                },
+                "monthly_costs": {
+                    "value": calculation_data['monthly_costs'],
+                    "formatted": f"${calculation_data['monthly_costs']:.2f}",
+                    "unit": "USD"
+                },
+                "annual_costs": {
+                    "value": calculation_data['annual_costs'],
+                    "formatted": f"${calculation_data['annual_costs']:.2f}",
+                    "unit": "USD"
+                }
+            }
+        }
+        
+        with open(filename, 'w', encoding='utf-8') as jsonfile:
+            json.dump(export_data, jsonfile, indent=2, ensure_ascii=False)
+        
+        return filename
+        
+    except IOError as e:
+        raise IOError(f"Failed to write JSON file '{filename}': {e}")
+    except (TypeError, ValueError) as e:
+        raise ValueError(f"Failed to serialize data to JSON: {e}")
+
 def main() -> None:
     try:
         # Default values for the calculator
@@ -319,6 +442,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
