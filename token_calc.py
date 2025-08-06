@@ -238,6 +238,56 @@ def print_pricing() -> None:
     print("      This calculator uses a simplified single rate per 1K tokens.")
     print("="*60 + "\n")
 
+def setup_logging(log_level: str = "INFO", log_file: str = "token_calculator.log") -> None:
+    """
+    Configure comprehensive logging for the application.
+    
+    Sets up both file and console logging with appropriate formatters and handlers.
+    
+    Args:
+        log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_file: Path to the log file
+    """
+    # Convert string log level to logging constant
+    numeric_level = getattr(logging, log_level.upper(), logging.INFO)
+    
+    # Create logger
+    logger = logging.getLogger()
+    logger.setLevel(numeric_level)
+    
+    # Clear any existing handlers to avoid duplicates
+    logger.handlers.clear()
+    
+    # Create formatters
+    detailed_formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
+    console_formatter = logging.Formatter(
+        '%(levelname)s: %(message)s'
+    )
+    
+    # File handler for detailed logging
+    try:
+        file_handler = logging.FileHandler(log_file, encoding='utf-8')
+        file_handler.setLevel(logging.DEBUG)  # File gets all messages
+        file_handler.setFormatter(detailed_formatter)
+        logger.addHandler(file_handler)
+    except IOError as e:
+        print(f"Warning: Could not create log file '{log_file}': {e}")
+    
+    # Console handler for important messages only
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)  # Console gets warnings and errors only
+    console_handler.setFormatter(console_formatter)
+    logger.addHandler(console_handler)
+    
+    # Log the setup completion
+    logging.info("Logging system initialized")
+    logging.info(f"Log level set to: {log_level}")
+    logging.info(f"Log file: {log_file}")
+
 def export_to_csv(calculation_data: Dict[str, Any], filename: Optional[str] = None) -> str:
     """
     Export calculation results to a CSV file.
@@ -525,6 +575,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
