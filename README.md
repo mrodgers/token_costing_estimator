@@ -39,10 +39,30 @@ To run the script, navigate to the directory containing the script and execute:
 
 ```bash
 python token_calc.py
+```
 
+The application will guide you through an interactive session:
+
+```bash
 Enter the number of prompts sent per doctor's shift [50]: 
 Enter the chain/interaction/augmentation multiplier [5]: 
-Enter the average tokens used per API call [2000]: {}
+Enter the average tokens used per API call [2000]: 
+
+============================================================
+CURRENT OPENAI PRICING REFERENCE (as of 2024)
+============================================================
+GPT-4 Models:
+  • GPT-4 (8K context):     $0.03/1K input tokens, $0.06/1K output tokens
+  • GPT-4 (32K context):    $0.06/1K input tokens, $0.12/1K output tokens
+  • GPT-4 Turbo:            $0.01/1K input tokens, $0.03/1K output tokens
+
+GPT-3.5 Models:
+  • GPT-3.5 Turbo:          $0.0015/1K input tokens, $0.002/1K output tokens
+
+Note: Prices may vary. Check https://openai.com/pricing for latest rates.
+      This calculator uses a simplified single rate per 1K tokens.
+============================================================
+
 Enter the OpenAI price per 1000 tokens (GPT-4=$0.06) (in $) [0.06]: 
 Enter the number of doctors on shift per hospital [10]: 
 Enter the number of shifts per day [3]: 
@@ -61,8 +81,12 @@ LLM Costing Analysis:
 ---------------------------------------------------------
 ```
 
+### Input Guidelines
 
-Follow the prompts to enter the required parameters or use the default values.
+- **Default Values**: Press Enter to use default values shown in brackets `[default]`
+- **Numeric Inputs**: All inputs should be positive numbers (integers or decimals)
+- **Error Handling**: The application gracefully handles invalid inputs and provides clear error messages
+- **Interruption**: Use `Ctrl+C` to safely exit the application at any time
 
 ## Contributing
 
@@ -77,5 +101,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Matt Rodgers - mrodgers.junk gmail
 
 Project Link: [https://github.com/mrodgers/token_costing_estimator](https://github.com/mrodgers/token_costing_estimator)
+
 
 
