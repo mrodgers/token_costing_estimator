@@ -32,7 +32,7 @@ class OpenAICostCalculator:
         # Calculates the total number of tokens used per shift.
         return self.prompts_per_shift * self.multiplier * self.avg_tokens_per_call
 
-    def calculate_cost_per_shift(self):
+    def calculate_cost_per_shift(self) -> float:
         # Calculates the total cost per shift based on the number of tokens used.
         tokens_per_shift = self.calculate_tokens_per_shift()
         return (tokens_per_shift / 1000) * self.token_cost_per_thousand
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
