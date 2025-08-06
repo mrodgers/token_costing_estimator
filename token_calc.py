@@ -148,7 +148,7 @@ def print_pricing():
     print("      This calculator uses a simplified single rate per 1K tokens.")
     print("="*60 + "\n")
 
-def main():
+def main() -> None:
     try:
         # Default values for the calculator
         default_prompts_per_shift = 50
@@ -223,6 +223,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
