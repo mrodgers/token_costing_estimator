@@ -4,10 +4,13 @@ This repository contains a Python script for calculating the cost of using OpenA
 
 ## Features
 
-- Calculation of total tokens used per doctor's shift.
-- Estimation of cost per shift based on token usage.
-- Calculation of total costs per hospital per shift.
-- Estimation of daily, monthly, and annual costs of OpenAI API usage for a hospital.
+- **Cost Calculation**: Comprehensive calculation of total tokens used per doctor's shift
+- **Multi-level Analysis**: Estimation of costs at shift, daily, monthly, and annual levels
+- **Hospital-wide Costing**: Calculation of total costs per hospital per shift
+- **Robust Error Handling**: Graceful handling of user input errors, EOF conditions, and keyboard interrupts
+- **Type Safety**: Full type hint coverage for improved code reliability and IDE support
+- **Interactive Pricing Reference**: Built-in display of current OpenAI pricing information
+- **Input Validation**: Comprehensive validation of all user inputs with clear error messages
 
 ## Installation
 
@@ -71,3 +74,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Matt Rodgers - mrodgers.junk gmail
 
 Project Link: [https://github.com/mrodgers/token_costing_estimator](https://github.com/mrodgers/token_costing_estimator)
+
