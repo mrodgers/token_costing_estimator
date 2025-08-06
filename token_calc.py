@@ -553,6 +553,7 @@ def main() -> None:
         
         # Offer export options (only in interactive mode to avoid interrupting CLI workflows)
         if args is None:  # Interactive mode
+            logging.info("Offering export options in interactive mode")
             print("\n" + "="*50)
             print("DATA EXPORT OPTIONS")
             print("="*50)
@@ -564,27 +565,37 @@ def main() -> None:
             
             try:
                 export_choice = get_input("Enter your choice (1-4)", "4").strip()
+                logging.debug(f"User selected export option: {export_choice}")
                 
                 if export_choice in ['1', '3']:
                     try:
+                        logging.info("Attempting CSV export")
                         csv_filename = export_to_csv(calculation_data)
                         print(f"✅ CSV export successful: {csv_filename}")
+                        logging.info(f"CSV export completed successfully: {csv_filename}")
                     except (IOError, ValueError) as e:
                         print(f"❌ CSV export failed: {e}")
+                        logging.error(f"CSV export failed: {e}")
                 
                 if export_choice in ['2', '3']:
                     try:
+                        logging.info("Attempting JSON export")
                         json_filename = export_to_json(calculation_data)
                         print(f"✅ JSON export successful: {json_filename}")
+                        logging.info(f"JSON export completed successfully: {json_filename}")
                     except (IOError, ValueError) as e:
                         print(f"❌ JSON export failed: {e}")
+                        logging.error(f"JSON export failed: {e}")
                 
                 if export_choice not in ['1', '2', '3', '4']:
                     print("Invalid choice. No export performed.")
+                    logging.warning(f"Invalid export choice selected: {export_choice}")
                     
             except (EOFError, KeyboardInterrupt):
                 print("\nExport cancelled.")
+                logging.info("Export cancelled by user")
         else:  # CLI mode - silent operation, no export prompts
+            logging.info("CLI mode - skipping export prompts")
             pass
 
     except KeyboardInterrupt:
@@ -628,6 +639,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
