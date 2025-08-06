@@ -12,7 +12,8 @@ class OpenAICostCalculator:
         token_cost_per_thousand (float): Cost of OpenAI API per 1000 tokens.
     """
 
-    def __init__(self, prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand):
+    def __init__(self, prompts_per_shift: Union[int, float], multiplier: Union[int, float], 
+                 avg_tokens_per_call: Union[int, float], token_cost_per_thousand: Union[int, float]) -> None:
         # Validates the input parameters.
         self.validate_inputs(prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand)
         self.prompts_per_shift = prompts_per_shift
@@ -218,6 +219,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
