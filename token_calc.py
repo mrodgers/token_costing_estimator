@@ -363,13 +363,25 @@ def export_to_json(calculation_data: Dict[str, Any], filename: Optional[str] = N
 
 def main() -> None:
     try:
-        # Default values for the calculator
-        default_prompts_per_shift = 50
-        default_multiplier = 5
-        default_avg_tokens_per_call = 2000
-        default_token_cost_per_thousand = 0.06 # from openai pricing
-        default_doctors_per_shift = 10
-        default_shifts_per_day = 3
+        # Load configuration-based defaults
+        try:
+            config = load_config()
+            default_prompts_per_shift = config.get("default_prompts_per_shift", 50)
+            default_multiplier = config.get("default_multiplier", 5)
+            default_avg_tokens_per_call = config.get("default_avg_tokens_per_call", 2000)
+            default_token_cost_per_thousand = config.get("default_token_cost_per_thousand", 0.06)
+            default_doctors_per_shift = config.get("default_doctors_per_shift", 10)
+            default_shifts_per_day = config.get("default_shifts_per_day", 3)
+        except ConfigurationError as e:
+            print(f"⚠️  Configuration warning: {e}")
+            print("Using built-in default values.")
+            # Fallback to hardcoded defaults
+            default_prompts_per_shift = 50
+            default_multiplier = 5
+            default_avg_tokens_per_call = 2000
+            default_token_cost_per_thousand = 0.06
+            default_doctors_per_shift = 10
+            default_shifts_per_day = 3
 
         # Parse command-line arguments
         args = parse_arguments()
@@ -513,6 +525,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
