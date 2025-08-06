@@ -400,6 +400,59 @@ def main() -> None:
         print("\nScenario Description:")
         print(description)
         display_results(cost_per_shift, cost_per_hospital_per_shift, daily_costs, monthly_costs, annual_costs)
+        
+        # Prepare data for export
+        calculation_data = {
+            'timestamp': datetime.now().isoformat(),
+            'prompts_per_shift': prompts_per_shift,
+            'multiplier': multiplier,
+            'avg_tokens_per_call': avg_tokens_per_call,
+            'token_cost_per_thousand': token_cost_per_thousand,
+            'doctors_per_shift': doctors_per_shift,
+            'shifts_per_day': shifts_per_day,
+            'cost_per_shift': cost_per_shift,
+            'cost_per_hospital_per_shift': cost_per_hospital_per_shift,
+            'daily_costs': daily_costs,
+            'monthly_costs': monthly_costs,
+            'annual_costs': annual_costs,
+            'scenario_description': description
+        }
+        
+        # Offer export options (only in interactive mode to avoid interrupting CLI workflows)
+        if args is None:  # Interactive mode
+            print("\n" + "="*50)
+            print("DATA EXPORT OPTIONS")
+            print("="*50)
+            print("Would you like to export these results to a file?")
+            print("1. Export to CSV")
+            print("2. Export to JSON")
+            print("3. Export to both formats")
+            print("4. No export (continue)")
+            
+            try:
+                export_choice = get_input("Enter your choice (1-4)", "4").strip()
+                
+                if export_choice in ['1', '3']:
+                    try:
+                        csv_filename = export_to_csv(calculation_data)
+                        print(f"✅ CSV export successful: {csv_filename}")
+                    except (IOError, ValueError) as e:
+                        print(f"❌ CSV export failed: {e}")
+                
+                if export_choice in ['2', '3']:
+                    try:
+                        json_filename = export_to_json(calculation_data)
+                        print(f"✅ JSON export successful: {json_filename}")
+                    except (IOError, ValueError) as e:
+                        print(f"❌ JSON export failed: {e}")
+                
+                if export_choice not in ['1', '2', '3', '4']:
+                    print("Invalid choice. No export performed.")
+                    
+            except (EOFError, KeyboardInterrupt):
+                print("\nExport cancelled.")
+        else:  # CLI mode - silent operation, no export prompts
+            pass
 
     except KeyboardInterrupt:
         print("\n\n" + "="*50)
@@ -442,6 +495,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
