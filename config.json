@@ -1,9 +1,9 @@
 {
   "_comment": "Token Costing Estimator Configuration File",
   "_description": "Customize default values for the cost calculator. All numeric values must be positive.",
-  "default_prompts_per_shift": 75,
-  "default_multiplier": 3,
-  "default_avg_tokens_per_call": 1500,
+  "default_prompts_per_shift": 50,
+  "default_multiplier": 5,
+  "default_avg_tokens_per_call": 2000,
   "default_token_cost_per_thousand": 0.06,
   "default_doctors_per_shift": 10,
   "default_shifts_per_day": 3,
@@ -20,3 +20,4 @@
     "Application settings control various features of the calculator"
   ]
 }
+
