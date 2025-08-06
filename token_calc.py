@@ -28,7 +28,7 @@ class OpenAICostCalculator:
         if not all(isinstance(arg, (int, float)) and arg > 0 for arg in [prompts_per_shift, multiplier, avg_tokens_per_call, token_cost_per_thousand]):
             raise ValueError("All parameters should be positive numbers.")
 
-    def calculate_tokens_per_shift(self):
+    def calculate_tokens_per_shift(self) -> float:
         # Calculates the total number of tokens used per shift.
         return self.prompts_per_shift * self.multiplier * self.avg_tokens_per_call
 
@@ -220,6 +220,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
