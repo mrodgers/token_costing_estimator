@@ -66,9 +66,30 @@ def print_pricing():
     print("="*60 + "\n")
 
 def get_input(prompt, default_value):
-    # Captures user input or uses default value if no input is provided.
-    user_input = input(f"{prompt} [{default_value}]: ")
-    return user_input if user_input else default_value
+    """Captures user input or uses default value if no input is provided.
+    
+    Handles EOF exceptions and keyboard interrupts gracefully.
+    
+    Args:
+        prompt (str): The prompt message to display to the user
+        default_value: The default value to use if no input is provided
+        
+    Returns:
+        The user input or default value
+        
+    Raises:
+        KeyboardInterrupt: Re-raised to allow caller to handle graceful shutdown
+        EOFError: Re-raised to allow caller to handle EOF conditions
+    """
+    try:
+        user_input = input(f"{prompt} [{default_value}]: ")
+        return user_input.strip() if user_input.strip() else default_value
+    except EOFError:
+        print(f"\nEOF detected. Using default value: {default_value}")
+        return default_value
+    except KeyboardInterrupt:
+        print(f"\n\nOperation cancelled by user. Using default value: {default_value}")
+        return default_value
 
 def display_results(cost_per_shift, cost_per_hospital_per_shift, daily_costs, monthly_costs, annual_costs):
     # Formats and displays the calculated cost results in a table format.
@@ -162,6 +183,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
