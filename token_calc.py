@@ -54,6 +54,74 @@ class OpenAICostCalculator:
         months_per_year = 12  # Number of months in a year
         return monthly_costs * months_per_year
 
+def parse_arguments() -> Optional[argparse.Namespace]:
+    """
+    Parse command-line arguments for the token costing calculator.
+    
+    Returns:
+        argparse.Namespace or None: Parsed arguments if provided, None if no arguments given
+    """
+    parser = argparse.ArgumentParser(
+        description="Calculate OpenAI API costs for healthcare applications",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python token_calc.py --prompts 50 --multiplier 5 --tokens 2000 --cost 0.06 --doctors 10 --shifts 3
+  python token_calc.py --prompts 100 --cost 0.03
+  python token_calc.py  # Interactive mode (default)
+        """
+    )
+    
+    parser.add_argument(
+        '--prompts', 
+        type=float, 
+        help='Number of prompts sent per doctor\'s shift (default: 50)'
+    )
+    parser.add_argument(
+        '--multiplier', 
+        type=float, 
+        help='Chain/interaction/augmentation multiplier (default: 5)'
+    )
+    parser.add_argument(
+        '--tokens', 
+        type=float, 
+        help='Average tokens used per API call (default: 2000)'
+    )
+    parser.add_argument(
+        '--cost', 
+        type=float, 
+        help='OpenAI price per 1000 tokens in USD (default: 0.06)'
+    )
+    parser.add_argument(
+        '--doctors', 
+        type=float, 
+        help='Number of doctors on shift per hospital (default: 10)'
+    )
+    parser.add_argument(
+        '--shifts', 
+        type=float, 
+        help='Number of shifts per day (default: 3)'
+    )
+    parser.add_argument(
+        '--version', 
+        action='version', 
+        version='Token Costing Estimator 1.0'
+    )
+    
+    # Parse arguments
+    args = parser.parse_args()
+    
+    # Check if any arguments were provided
+    if any(vars(args).values()):
+        # Validate that all provided arguments are positive
+        for arg_name, arg_value in vars(args).items():
+            if arg_value is not None and arg_value <= 0:
+                parser.error(f"--{arg_name} must be a positive number, got {arg_value}")
+        return args
+    else:
+        # No arguments provided, return None to indicate interactive mode
+        return None
+
 def print_pricing():
     """Displays current OpenAI pricing information to help users understand cost structure."""
     print("\n" + "="*60)
@@ -224,6 +292,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
