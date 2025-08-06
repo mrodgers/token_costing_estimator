@@ -412,9 +412,14 @@ def export_to_json(calculation_data: Dict[str, Any], filename: Optional[str] = N
         raise ValueError(f"Failed to serialize data to JSON: {e}")
 
 def main() -> None:
+    # Initialize logging system
+    setup_logging()
+    logging.info("Token Costing Estimator application started")
+    
     try:
         # Load configuration-based defaults
         try:
+            logging.info("Loading configuration settings")
             config = load_config()
             default_prompts_per_shift = config.get("default_prompts_per_shift", 50)
             default_multiplier = config.get("default_multiplier", 5)
@@ -422,7 +427,9 @@ def main() -> None:
             default_token_cost_per_thousand = config.get("default_token_cost_per_thousand", 0.06)
             default_doctors_per_shift = config.get("default_doctors_per_shift", 10)
             default_shifts_per_day = config.get("default_shifts_per_day", 3)
+            logging.info(f"Configuration loaded successfully with defaults: prompts={default_prompts_per_shift}, multiplier={default_multiplier}, tokens={default_avg_tokens_per_call}, cost={default_token_cost_per_thousand}, doctors={default_doctors_per_shift}, shifts={default_shifts_per_day}")
         except ConfigurationError as e:
+            logging.warning(f"Configuration error: {e}")
             print(f"⚠️  Configuration warning: {e}")
             print("Using built-in default values.")
             # Fallback to hardcoded defaults
@@ -432,6 +439,7 @@ def main() -> None:
             default_token_cost_per_thousand = 0.06
             default_doctors_per_shift = 10
             default_shifts_per_day = 3
+            logging.info("Using built-in fallback defaults")
 
         # Parse command-line arguments
         args = parse_arguments()
@@ -575,6 +583,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
