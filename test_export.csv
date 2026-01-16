@@ -1,0 +1,20 @@
+Metric,Value,Unit
+=== INPUT PARAMETERS ===,,
+Prompts per shift,50.0,prompts
+Chain/interaction multiplier,5.0,multiplier
+Average tokens per call,2000.0,tokens
+Cost per 1000 tokens,0.06,USD
+Doctors per shift,10.0,doctors
+Shifts per day,3.0,shifts
+,,
+=== CALCULATED RESULTS ===,,
+Cost per shift,$30.00,USD
+Cost per hospital per shift,$300.00,USD
+Daily costs,$900.00,USD
+Monthly costs,$27000.00,USD
+Annual costs,$324000.00,USD
+,,
+=== METADATA ===,,
+Export timestamp,2025-08-06T19:35:31.950486,
+Application,Token Costing Estimator,
+Scenario,Test scenario for export functionality validation...,

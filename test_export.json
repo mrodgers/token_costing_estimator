@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "application": "Token Costing Estimator",
+    "version": "1.0",
+    "export_timestamp": "2025-08-06T19:35:31.950486",
+    "scenario_description": "Test scenario for export functionality validation"
+  },
+  "input_parameters": {
+    "prompts_per_shift": 50.0,
+    "multiplier": 5.0,
+    "avg_tokens_per_call": 2000.0,
+    "token_cost_per_thousand": 0.06,
+    "doctors_per_shift": 10.0,
+    "shifts_per_day": 3.0
+  },
+  "calculated_results": {
+    "cost_per_shift": {
+      "value": 30.0,
+      "formatted": "$30.00",
+      "unit": "USD"
+    },
+    "cost_per_hospital_per_shift": {
+      "value": 300.0,
+      "formatted": "$300.00",
+      "unit": "USD"
+    },
+    "daily_costs": {
+      "value": 900.0,
+      "formatted": "$900.00",
+      "unit": "USD"
+    },
+    "monthly_costs": {
+      "value": 27000.0,
+      "formatted": "$27000.00",
+      "unit": "USD"
+    },
+    "annual_costs": {
+      "value": 324000.0,
+      "formatted": "$324000.00",
+      "unit": "USD"
+    }
+  }
+}

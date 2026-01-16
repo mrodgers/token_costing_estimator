@@ -4,22 +4,28 @@ This repository contains a Python script for calculating the cost of using OpenA
 
 ## Features
 
-- Calculation of total tokens used per doctor's shift.
-- Estimation of cost per shift based on token usage.
-- Calculation of total costs per hospital per shift.
-- Estimation of daily, monthly, and annual costs of OpenAI API usage for a hospital.
+- **Cost Calculation**: Comprehensive calculation of total tokens used per doctor's shift
+- **Multi-level Analysis**: Estimation of costs at shift, daily, monthly, and annual levels
+- **Hospital-wide Costing**: Calculation of total costs per hospital per shift
+- **Robust Error Handling**: Graceful handling of user input errors, EOF conditions, and keyboard interrupts
+- **Type Safety**: Full type hint coverage for improved code reliability and IDE support
+- **Interactive Pricing Reference**: Built-in display of current OpenAI pricing information
+- **Input Validation**: Comprehensive validation of all user inputs with clear error messages
 
 ## Installation
 
-To run this script, you will need Python installed on your system. Additionally, the script uses the following packages:
-- `bs4` (BeautifulSoup) for HTML parsing.
-- `json` for JSON handling.
+To run this script, you will need Python 3.6 or higher installed on your system. The application uses only Python's built-in standard library modules, so **no external dependencies are required**.
 
-You can install these packages using pip:
+### Quick Start
 
-```bash
-pip install beautifulsoup4
-```
+1. Ensure you have Python 3.6+ installed:
+   ```bash
+   python --version
+   # or
+   python3 --version
+   ```
+
+2. No additional packages need to be installed - the script is ready to run!
 
 ## Setup
 
@@ -33,10 +39,30 @@ To run the script, navigate to the directory containing the script and execute:
 
 ```bash
 python token_calc.py
+```
 
+The application will guide you through an interactive session:
+
+```bash
 Enter the number of prompts sent per doctor's shift [50]: 
 Enter the chain/interaction/augmentation multiplier [5]: 
-Enter the average tokens used per API call [2000]: {}
+Enter the average tokens used per API call [2000]: 
+
+============================================================
+CURRENT OPENAI PRICING REFERENCE (as of 2024)
+============================================================
+GPT-4 Models:
+  • GPT-4 (8K context):     $0.03/1K input tokens, $0.06/1K output tokens
+  • GPT-4 (32K context):    $0.06/1K input tokens, $0.12/1K output tokens
+  • GPT-4 Turbo:            $0.01/1K input tokens, $0.03/1K output tokens
+
+GPT-3.5 Models:
+  • GPT-3.5 Turbo:          $0.0015/1K input tokens, $0.002/1K output tokens
+
+Note: Prices may vary. Check https://openai.com/pricing for latest rates.
+      This calculator uses a simplified single rate per 1K tokens.
+============================================================
+
 Enter the OpenAI price per 1000 tokens (GPT-4=$0.06) (in $) [0.06]: 
 Enter the number of doctors on shift per hospital [10]: 
 Enter the number of shifts per day [3]: 
@@ -55,8 +81,39 @@ LLM Costing Analysis:
 ---------------------------------------------------------
 ```
 
+### Input Guidelines
 
-Follow the prompts to enter the required parameters or use the default values.
+- **Default Values**: Press Enter to use default values shown in brackets `[default]`
+- **Numeric Inputs**: All inputs should be positive numbers (integers or decimals)
+- **Error Handling**: The application gracefully handles invalid inputs and provides clear error messages
+- **Interruption**: Use `Ctrl+C` to safely exit the application at any time
+
+## Technical Features
+
+### Error Handling & Reliability
+
+The application includes comprehensive error handling for production-ready reliability:
+
+- **Input Validation**: All user inputs are validated to ensure they are positive numbers
+- **EOF Handling**: Gracefully handles end-of-file conditions (useful for automated environments)
+- **Keyboard Interrupt**: Clean exit when users press `Ctrl+C` with informative messages
+- **Value Errors**: Clear error messages for invalid numeric inputs with troubleshooting guidance
+- **Unexpected Errors**: Comprehensive error reporting for debugging purposes
+
+### Type Safety & Code Quality
+
+The codebase implements modern Python best practices:
+
+- **Full Type Hints**: Complete type annotation coverage using `typing.Union` for numeric inputs
+- **Type-Safe Methods**: All class methods and functions include proper return type annotations
+- **Input/Output Types**: Clear type definitions for all function parameters and return values
+- **IDE Support**: Enhanced development experience with full IntelliSense and error detection
+
+### Architecture
+
+- **Object-Oriented Design**: Clean `OpenAICostCalculator` class with well-defined responsibilities
+- **Separation of Concerns**: Distinct functions for input handling, calculations, and output display
+- **Modular Structure**: Easy to extend and maintain codebase structure
 
 ## Contributing
 
@@ -71,3 +128,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Matt Rodgers - mrodgers.junk gmail
 
 Project Link: [https://github.com/mrodgers/token_costing_estimator](https://github.com/mrodgers/token_costing_estimator)
+
+
+
+
